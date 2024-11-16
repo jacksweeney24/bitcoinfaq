@@ -6,45 +6,130 @@
     <title>Bitcoin Learning Resources</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Courier New', monospace;
             line-height: 1.6;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #121212;
-            color: #e0e0e0;
+            background-color: #0a0a0a;
+            color: #00ff41;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
         }
 
         h1 {
             color: #f7931a;
             text-align: center;
+            font-size: 2.5em;
+            text-shadow: 0 0 10px rgba(247, 147, 26, 0.5);
+            animation: glitch 1s infinite;
         }
 
         .section {
-            background-color: #1e1e1e;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-            border: 1px solid #333;
+            background-color: rgba(14, 14, 14, 0.95);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+            border: 1px solid #1a1a1a;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transform: perspective(1000px) rotateX(1deg);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .section:hover {
+            transform: perspective(1000px) rotateX(0deg) translateY(-5px);
+            box-shadow: 0 8px 25px rgba(247, 147, 26, 0.2);
         }
 
         h2 {
-            color: #ffffff;
+            color: #f7931a;
             border-bottom: 2px solid #f7931a;
-            padding-bottom: 5px;
+            padding-bottom: 10px;
+            text-shadow: 0 0 5px rgba(247, 147, 26, 0.3);
         }
 
         a {
-            color: #3391ff;
+            color: #00ff41;
             text-decoration: none;
             display: block;
-            margin: 10px 0;
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #1a1a1a;
+            border-radius: 4px;
+            transition: all 0.3s;
         }
 
         a:hover {
             color: #f7931a;
-            text-decoration: underline;
+            background-color: rgba(247, 147, 26, 0.1);
+            transform: translateX(10px);
+            border-color: #f7931a;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 0 0 10px rgba(247, 147, 26, 0.5);
+            }
+            15% {
+                text-shadow: 0 0 10px rgba(247, 147, 26, 0.5), 
+                             2px 2px 0 rgba(255,0,0,0.2),
+                             -2px -2px 0 rgba(0,255,0,0.2);
+            }
+            16% {
+                text-shadow: 0 0 10px rgba(247, 147, 26, 0.5);
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #f7931a;
+            border-radius: 5px;
+        }
+
+        .calculator, .tip-container {
+            background-color: rgba(20, 20, 20, 0.95);
+            border: 1px solid #f7931a;
+            box-shadow: 0 0 15px rgba(247, 147, 26, 0.2);
+        }
+
+        input {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+        }
+
+        button {
+            background-color: #f7931a;
+            border: none;
+            color: #0a0a0a;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background-color: #ff9f1a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(247, 147, 26, 0.3);
         }
 
         .embed-container {
@@ -63,54 +148,6 @@
             border: none;
         }
 
-        .calculator {
-            padding: 15px;
-            border-radius: 5px;
-            background-color: #252525;
-        }
-
-        .input-group {
-            margin-bottom: 15px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #e0e0e0;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #444;
-            border-radius: 4px;
-            background-color: #333;
-            color: #e0e0e0;
-            margin-bottom: 5px;
-        }
-
-        .hint {
-            font-size: 0.8em;
-            color: #888;
-            display: block;
-        }
-
-        button {
-            background-color: #f7931a;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-
-        button:hover {
-            background-color: #e88a18;
-        }
-
         .result {
             background-color: #1a1a1a;
             padding: 15px;
@@ -121,30 +158,6 @@
         .result p {
             margin: 5px 0;
             font-size: 1.1em;
-        }
-
-        .tip-container {
-            padding: 15px;
-            border-radius: 5px;
-            background-color: #252525;
-            text-align: center;
-        }
-
-        .tip-button {
-            background-color: #792ee5; /* Lightning purple */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-            margin-bottom: 15px;
-            transition: background-color 0.3s;
-        }
-
-        .tip-button:hover {
-            background-color: #8f44ff;
         }
 
         .tip-status {
@@ -164,10 +177,216 @@
         .tradingview-widget-container {
             width: 100%;
         }
+
+        .audio-player {
+            background-color: #252525;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .player-controls button {
+            background-color: #f7931a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: auto;
+            margin: 0;
+        }
+
+        .player-controls button:hover {
+            background-color: #e88a18;
+        }
+
+        .progress-container {
+            flex-grow: 1;
+            background-color: #333;
+            height: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-bar {
+            background-color: #f7931a;
+            height: 100%;
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .time {
+            color: #e0e0e0;
+            font-size: 14px;
+            min-width: 45px;
+        }
+
+        .time-separator {
+            color: #e0e0e0;
+        }
+
+        .explorer-link {
+            display: block;
+            padding: 20px;
+            text-align: center;
+            background: #1a1a1a;
+            border: 1px solid #f7931a;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+
+        .explorer-link:hover {
+            background: rgba(247, 147, 26, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .custom-explorer {
+            background: #0a0a0a;
+            border: 1px solid #f7931a;
+            border-radius: 8px;
+            padding: 20px;
+            color: #00ff41;
+        }
+
+        .explorer-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #333;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            border-color: #f7931a;
+        }
+
+        .stat-box h3 {
+            color: #f7931a;
+            margin: 0 0 10px 0;
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .blocks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .block-item {
+            background: #1a1a1a;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.3s;
+            animation: fadeIn 0.5s;
+        }
+
+        .block-item:hover {
+            border-color: #f7931a;
+            transform: translateY(-3px);
+        }
+
+        .tx-list {
+            margin-top: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .tx-item {
+            background: #1a1a1a;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.3s;
+            animation: slideIn 0.5s;
+        }
+
+        .tx-item:hover {
+            border-color: #f7931a;
+            transform: translateX(5px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Custom scrollbar for tx list */
+        .tx-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .tx-list::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        .tx-list::-webkit-scrollbar-thumb {
+            background: #f7931a;
+            border-radius: 3px;
+        }
     </style>
 </head>
 <body>
+    <canvas id="matrix" class="matrix-bg"></canvas>
+
     <h1>🌟 Bitcoin Learning Resources 🌟</h1>
+
+    <div class="section">
+        <h2>🎵 Bitcoin Anthem</h2>
+        <div class="audio-player">
+            <audio id="bitcoinAudio" preload="metadata">
+                <!-- Replace this source with your preferred audio file -->
+                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="player-controls">
+                <button id="playButton" onclick="togglePlay()">
+                    ▶️ Play
+                </button>
+                <div class="progress-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                <span id="currentTime" class="time">0:00</span>
+                <span class="time-separator">/</span>
+                <span id="duration" class="time">0:00</span>
+            </div>
+        </div>
+    </div>
 
     <div class="section">
         <h2>Bitcoin Market Cycles</h2>
@@ -246,8 +465,31 @@
 
     <div class="section">
         <h2>Live Blockchain Explorer</h2>
-        <div class="embed-container">
-            <iframe src="https://mempool.space/"></iframe>
+        <div class="custom-explorer">
+            <div class="explorer-stats">
+                <div class="stat-box">
+                    <h3>Latest Block</h3>
+                    <div id="latestBlock">Loading...</div>
+                    <div id="blockTime" class="subtitle">...</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Network Hashrate</h3>
+                    <div id="networkHashrate">Loading...</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Mempool</h3>
+                    <div id="mempoolSize">Loading...</div>
+                    <div id="mempoolFee" class="subtitle">...</div>
+                </div>
+            </div>
+            <div class="blocks-container">
+                <h3>Recent Blocks</h3>
+                <div id="recentBlocks" class="blocks-grid"></div>
+            </div>
+            <div class="transactions-container">
+                <h3>Latest Transactions</h3>
+                <div id="recentTx" class="tx-list"></div>
+            </div>
         </div>
     </div>
 
@@ -352,6 +594,166 @@
                 statusElement.innerHTML = `❌ Error: ${error.message}`;
             }
         }
+
+        const audio = document.getElementById('bitcoinAudio');
+        const playButton = document.getElementById('playButton');
+        const progressBar = document.getElementById('progress-bar');
+        const currentTimeSpan = document.getElementById('currentTime');
+        const durationSpan = document.getElementById('duration');
+
+        function togglePlay() {
+            if (audio.paused) {
+                audio.play();
+                playButton.textContent = '⏸️ Pause';
+            } else {
+                audio.pause();
+                playButton.textContent = '▶️ Play';
+            }
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+            return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        audio.addEventListener('timeupdate', () => {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = progress + '%';
+            currentTimeSpan.textContent = formatTime(audio.currentTime);
+        });
+
+        audio.addEventListener('loadedmetadata', () => {
+            durationSpan.textContent = formatTime(audio.duration);
+        });
+
+        document.querySelector('.progress-container').addEventListener('click', (e) => {
+            const rect = e.target.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const width = rect.width;
+            const percentage = x / width;
+            audio.currentTime = percentage * audio.duration;
+        });
+
+        audio.addEventListener('ended', () => {
+            playButton.textContent = '▶️ Play';
+            progressBar.style.width = '0%';
+        });
+
+        // Matrix rain effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = '01₿';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for(let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff41';
+            ctx.font = fontSize + 'px monospace';
+
+            for(let i = 0; i < drops.length; i++) {
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 35);
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Utility functions
+        function formatHash(hash) {
+            return `${hash.substring(0, 6)}...${hash.substring(62)}`;
+        }
+
+        function formatBTC(sats) {
+            return (sats / 100000000).toFixed(8);
+        }
+
+        function timeSince(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+            if (seconds < 60) return `${seconds} seconds ago`;
+            const minutes = Math.floor(seconds / 60);
+            if (minutes < 60) return `${minutes} minutes ago`;
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return `${hours} hours ago`;
+            const days = Math.floor(hours / 24);
+            return `${days} days ago`;
+        }
+
+        // Fetch blockchain data
+        async function fetchBlockchainData() {
+            try {
+                const response = await fetch('https://mempool.space/api/v1/blocks');
+                const blocks = await response.json();
+                
+                // Update latest block info
+                const latestBlock = blocks[0];
+                document.getElementById('latestBlock').innerHTML = `
+                    Height: ${latestBlock.height}<br>
+                    Hash: ${formatHash(latestBlock.id)}
+                `;
+                document.getElementById('blockTime').textContent = timeSince(latestBlock.timestamp * 1000);
+
+                // Update recent blocks
+                const blocksHTML = blocks.slice(0, 6).map(block => `
+                    <div class="block-item" onclick="window.open('https://mempool.space/block/${block.id}')">
+                        <div>Height: ${block.height}</div>
+                        <div>Txs: ${block.tx_count}</div>
+                        <div>Size: ${(block.size / 1024 / 1024).toFixed(2)} MB</div>
+                    </div>
+                `).join('');
+                document.getElementById('recentBlocks').innerHTML = blocksHTML;
+
+                // Fetch and update mempool info
+                const mempoolResponse = await fetch('https://mempool.space/api/mempool');
+                const mempool = await mempoolResponse.json();
+                document.getElementById('mempoolSize').innerHTML = `
+                    ${mempool.count} transactions<br>
+                    ${(mempool.vsize / 1024 / 1024).toFixed(2)} vMB
+                `;
+                
+                // Fetch recent transactions
+                const txResponse = await fetch('https://mempool.space/api/v1/transactions');
+                const transactions = await txResponse.json();
+                const txHTML = transactions.slice(0, 5).map(tx => `
+                    <div class="tx-item" onclick="window.open('https://mempool.space/tx/${tx.txid}')">
+                        <div>ID: ${formatHash(tx.txid)}</div>
+                        <div>Amount: ${formatBTC(tx.value)} BTC</div>
+                        <div>Size: ${tx.size} bytes</div>
+                    </div>
+                `).join('');
+                document.getElementById('recentTx').innerHTML = txHTML;
+
+            } catch (error) {
+                console.error('Error fetching blockchain data:', error);
+            }
+        }
+
+        // Initial fetch and set up interval
+        fetchBlockchainData();
+        setInterval(fetchBlockchainData, 30000); // Update every 30 seconds
     </script>
 </body>
 </html>
